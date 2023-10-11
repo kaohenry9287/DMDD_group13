@@ -117,10 +117,10 @@ Our primary objective is to develop and implement a robust Patient Appointment S
 7. Patient-Billing: Each patient has a billing record associated with their medical expenses. This relationship facilitates the management of financial transactions related to healthcare services.
 8. Doctor-Billing: Doctors generate bills for their services. This relationship connects the healthcare provider to the billing system, enabling accurate invoicing for medical consultations and procedures.
 9. Patient-Prescription: Patients receive prescriptions for medications from doctors. This relationship tracks the medications prescribed to individual patients.
-10. Prescription-Report: It links prescriptions to the doctors who prescribed them. This is essential for tracking the medical history of patients and ensuring the proper administration of medications.
+10. Prescription-Report: It links prescriptions to the report which is prescribed by the doctor in the report during the appointment. This is essential for tracking the medical history of patients and ensuring the proper administration of medications.
 11. Patient-Test: Patients may undergo various medical tests. This relationship associates patients with the tests they are scheduled for or have undergone, facilitating the tracking of diagnostic procedures.
-12. Report-Doctor:
-14. Test-Report: Doctors may order medical tests for patients. This relationship connects the tests to the healthcare providers who requested them, ensuring that the correct tests are conducted and results communicated.
+12. Report-Doctor: The doctor will give a report for each appointment with a Patient, which might contain a Test or Prescription or none.
+13. Test-Report: The report may contain medical tests for patients. This relationship connects the tests to the healthcare providers who requested them, ensuring that the correct tests are conducted and results communicated.
 15. Patient-Insurance: Patients may have health insurance coverage. This relationship links patients to their respective insurance policies, enabling the healthcare facility to verify coverage and manage insurance claims.
 
 ### DESIGN DECISIONS
