@@ -17,8 +17,8 @@ In today's ever-changing healthcare landscape, this system isn't just a convenie
 Our primary objective is to develop and implement a robust Patient Appointment Scheduling System that simplifies the booking process, minimizes no-shows, and maximizes the utilization of healthcare resources. We strive to provide an intuitive and efficient platform that integrates seamlessly with existing healthcare systems, ultimately improving patient care, reducing administrative burdens, and fostering data-driven decision-making within the healthcare industry.
 
 ### ER DIAGRAM
+![FinalP2CHANGES drawio](https://github.com/kaohenry9287/DMDD_group13/assets/43743693/ba549527-4f7b-4b11-8d50-57ad6bd15772)
 
-![P2Final](https://github.com/kaohenry9287/DMDD_group13/assets/43743693/b6c4e59a-4344-45cd-97c4-c161b904fba3)
 
 ### Entities
 
