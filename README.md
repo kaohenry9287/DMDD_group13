@@ -1,59 +1,141 @@
 # DMDD_group13
 The project of group 13 of NEU Database Management and Database Design in 2023 Fall
 
-## Topic: Hospital Patient Monitoring System
+## Topic: Patient Appointment Scheduling System
 
 ### Background
 
-Since managing tons of patient information is a very tough but crucial task for the hospital. A good patient management system is essential for all the patients and employees of the hospital. This database system will play a very important role in providing quality healthcare services and enhancing the overall patient experience.
+Imagine you're in a busy healthcare facility, trying to schedule a doctor's appointment. But it's not as simple as picking a date and time. Other factors to consider include making sure there's a room available, the necessary medications are on hand, and any required tests are in order.
+Here's the question: Can we handle all this efficiently without a reliable database? Is it practical to rely solely on manual methods, like jotting down appointments with pen and paper, without considering the complexities involved?
+That's where our Patient Appointment Scheduling System comes into play. It breaks down the different parts of this system and shows how they work together smoothly. It emphasizes how technology helps streamline the process, ensuring timely care and efficient resource management.
+In today's ever-changing healthcare landscape, this system isn't just a convenience; it's a necessity. It's about more than just appointments; it's about making the entire process better for patients while keeping things organized and formal.
+
 
 
 ### Mission Statement/Objectives
 
-Our mission is to develop a Hospital Patient Monitoring System that could record all the information related to patients and enhance hospital operations. The primary objectives of this system are as follows:
+Our primary objective is to develop and implement a robust Patient Appointment Scheduling System that simplifies the booking process, minimizes no-shows, and maximizes the utilization of healthcare resources. We strive to provide an intuitive and efficient platform that integrates seamlessly with existing healthcare systems, ultimately improving patient care, reducing administrative burdens, and fostering data-driven decision-making within the healthcare industry.
 
-- 	**Patient Records Management:**
-    <br>Maintain detailed records of all patients, including their personal information, medical history, and treatment plans.
+### ER DIAGRAM
 
-- 	**Patient Admissions and Discharge:**
-    <br>Streamline the admission and discharge processes for patients. Keep track of admission dates, discharge dates, and relevant documentation.
+![P2Final](https://github.com/kaohenry9287/DMDD_group13/assets/43743693/b6c4e59a-4344-45cd-97c4-c161b904fba3)
 
-- 	**Billing and Payments:**
-    <br>Generate and manage patient bills, process payments, and track outstanding balances. Provide patients with clear and transparent billing information.
+### Entities
 
-- 	**Appointment Scheduling:**
-    <br>Allow patients to schedule appointments with doctors or departments, helping in efficient resource allocation.
+1. Patient
+2. Appointment
+3. Doctor
+4. Department
+5. Hospital
+6. Billing
+7. Room
+8. Insurance
+9. Report
+10. Prescription
+11. Test
 
-- 	**Patient Classification:**
-    <br>Categorize patients into different subtypes, such as "InTreatingPatient" and "DischargedPatient," to track their current status and treatment history.
+### Entities and their Attributes
+- Patient
+  1. PatientID (Primary Key)
+  2. First Name
+  3. Last Name
+  4. Date Of Birth
+  5. Gender
+  6. Phone Number
+  7. Emergency Contact Name
+  8. Emergency Contact Number
+- Appointment
+  1. AppointmentID (Primary Key)
+  2. PatientID (Foreign Key)
+  3. DoctorID (Foreign Key)
+  4. Appointment Date Time
+  5. Appointment Status
+  6. Appointment Reason
+  7. Comments
+- Doctor
+  1. DoctorID (Primary Key)
+  2. First Name
+  3. Last Name
+  4. Specialization
+  5. DepartmentID
+  6. Phone Number
+  7. License Number
+  8. Holiday Dates
+- Department
+  1. DepartmentID (Primary Key)
+  2. Department Name
+  3. Description
+  4. Location
+- Hospital
+  1. HospitalID (Primary Key)
+  2. Hospital Name
+  3. Hospital Address
+- Billing
+  1. Billing ID (Primary Key)
+  2. Patient ID (Foreign Key)
+  3. Doctor ID (Foreign Key)
+  4. Appointment ID (Foreign Key)
+  5. Billing Date
+  6. Amount
+  7. Payment Status
+- Room
+  1. Room Number
+  2. Floor Number
+- Insurance
+  1. Insurance ID (Primary key)
+  2. Insurance Company Name
+  3. Policy Number
+  4. Expiration Date
+- Report
+  1. ReportID (Primary Key)
+  2. ReportDescription
+  3. ReportDate
+  4. Prescription
+  5. PrescriptionID (Primary Key)
+  6. PatientID (Foreign Key)
+  7. ReportID (Foreign Key)
+  8. Medication Name
+  9. Dosage
+  10. Start Date
+  11. End Date
+- Test
+  1. TestID (Primary Key)
+  2. PatientID (Foreign Key)
+  3. ReportID (Foreign Key)
+  4. Test Name
+  5. Date
+  6. Result
+ 
+### RELATION BETWEEN ENTITIES
 
-- 	**Doctor-Patient Assignment:**
-    <br>Assign patients to specific doctors based on their health conditions and treatment requirements.
+1. Patient-Appointment: Each patient is associated with one or more appointments. This relationship links patients to their scheduled medical visits, allowing for tracking appointment history and ensuring timely care.
+2. Appointment-Doctor: An appointment is linked to a specific doctor or healthcare provider. This relationship establishes the connection between the scheduled visit and the healthcare professional who will attend to the patient.
+3. Doctor-Department: Doctors are affiliated with specific departments within the healthcare institution. This relationship defines the specialization and expertise of each doctor.
+4. Department-Hospital: Each department operates within a particular hospital. This relationship helps in the organization of medical services, and it is vital for resource allocation.
+5. Hospital-Room: Hospitals consist of multiple rooms, such as patient rooms, examination rooms, and operating rooms. This relationship associates rooms with the hospital they belong to.
+6. Patient-Room: Patients have to go to a specific room to receive the treatment. 
+7. Patient-Billing: Each patient has a billing record associated with their medical expenses. This relationship facilitates the management of financial transactions related to healthcare services.
+8. Doctor-Billing: Doctors generate bills for their services. This relationship connects the healthcare provider to the billing system, enabling accurate invoicing for medical consultations and procedures.
+9. Patient-Prescription: Patients receive prescriptions for medications from doctors. This relationship tracks the medications prescribed to individual patients.
+10. Prescription-Report: It links prescriptions to the doctors who prescribed them. This is essential for tracking the medical history of patients and ensuring the proper administration of medications.
+11. Patient-Test: Patients may undergo various medical tests. This relationship associates patients with the tests they are scheduled for or have undergone, facilitating the tracking of diagnostic procedures.
+12. Report-Doctor:
+14. Test-Report: Doctors may order medical tests for patients. This relationship connects the tests to the healthcare providers who requested them, ensuring that the correct tests are conducted and results communicated.
+15. Patient-Insurance: Patients may have health insurance coverage. This relationship links patients to their respective insurance policies, enabling the healthcare facility to verify coverage and manage insurance claims.
 
-- 	**Nurse Assignment:**
-    <br>Assign nurses to patients and track their responsibilities in assisting patients with care and medication.
+### DESIGN DECISIONS
 
-- 	**Medical Equipment Management:**
-    <br>Track the availability, usage, and maintenance schedules of medical machines and equipment to ensure they are in good working condition for patient care.
-
-- 	**Medicine Inventory:**
-    <br>Manage the inventory of medicines, track prescriptions, and monitor medication administration to patients.
-
-- 	**Medical Reports:**
-    <br>Store and retrieve medical reports, test results, and diagnostic images for reference and sharing among healthcare providers.
-
-- 	**Hospital Specializations:**
-    <br>Maintain information about the hospital's specialization areas (e.g., Neurology, Cardiology) to facilitate patient referrals and departmental coordination.
-
-- 	**Pharmacy Integration:**
-    <br>Integrate with the hospital's pharmacy to ensure timely availability of prescribed medications and manage billing for medications.
-
-- 	**Department Management:**
-    <br>Manage hospital departments, allocate resources, and track department-specific data, such as patient flow and treatment success rates.
-
-- 	**Visitor Logs:**
-    <br>Maintain visitor records, including visitor names, visiting hours, and reasons for visits. Ensure the security and safety of patients and hospital facilities.
-
-Our Hospital Patient Management Database System aims to not only record patient information but also streamline hospital operations. Furthermore, we hope this system could enhance the overall patient experience by managing patient data and hospital resources efficiently. By focusing on patient-centric features and data accuracy, the system will contribute to the delivery of high-quality healthcare services.
-
-
+1. A PATIENT may have many BILLINGs. However, each BILLING must belong to exactly one PATIENT.
+2. A PATIENT may make many APPOINTMENTs. But each APPOINTMENT must belong to exactly one PATIENT. 
+3. A PATIENT may have many PRESCRIPTIONs. However, each PRESCRIPTIONS must belong to exactly one PATIENT.
+4. A PATIENT may use many INSURANCE. But each INSURANCE must belong to exactly one PATIENT.
+5. A PATIENT may have many PRESCRIPTIONs. However, each PRESCRIPTION must belong to one PATIENT.
+6. A PATIENT may take many TESTs. And each TEST may be taken by one PATIENT.
+7. A REPORT may contain many PRESCRIPTIONs. But each PRESCRIPTION must be a part of exactly one REPORT.
+8. A REPORT may contain many TESTs. But each TEST must be a part of exactly one REPORT.
+9. A DOCTOR must give at least one REPORT. And each REPORT must be given by exactly one DOCTOR.
+10. A DEPARTMENT may have many DOCTORs. But each DOCTOR must belong to exactly one DEPARTMENT.
+11. A HOSPITAL may have many DEPARTMENTs. But each DEPARTMENT must belong to exactly one HOSPITAL.
+12. A DEPARTMENT  may have many RESOURCEs. And each RESOURCE must belong to at least one DEPARTMENT.
+13. A ROOM may be assigned to many PATIENTs. And each PATIENT may accommodate one ROOM.
+14. A HOSPITAL must have at least one ROOM. And each ROOM only could belong to one HOSPITAL.
