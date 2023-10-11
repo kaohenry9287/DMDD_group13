@@ -90,14 +90,14 @@ Our primary objective is to develop and implement a robust Patient Appointment S
   1. ReportID (Primary Key)
   2. ReportDescription
   3. ReportDate
-  4. Prescription
-  5. PrescriptionID (Primary Key)
-  6. PatientID (Foreign Key)
-  7. ReportID (Foreign Key)
-  8. Medication Name
-  9. Dosage
-  10. Start Date
-  11. End Date
+- Prescription
+  1. PrescriptionID (Primary Key)
+  2. PatientID (Foreign Key)
+  3. ReportID (Foreign Key)
+  4. Medication Name
+  5. Dosage
+  6. Start Date
+  7. End Date
 - Test
   1. TestID (Primary Key)
   2. PatientID (Foreign Key)
