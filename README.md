@@ -33,6 +33,7 @@ Our primary objective is to develop and implement a robust Patient Appointment S
 9. Report
 10. Prescription
 11. Test
+12. Holiday
 
 ### Entities and their Attributes
 - Patient
@@ -57,85 +58,102 @@ Our primary objective is to develop and implement a robust Patient Appointment S
   2. First Name
   3. Last Name
   4. Specialization
-  5. DepartmentID
-  6. Phone Number
-  7. License Number
-  8. Holiday Dates
+  5. Phone Number
+  6. License Number
+  7. Holiday Dates(Multivalued attribute)
+
 - Department
   1. DepartmentID (Primary Key)
-  2. Department Name
-  3. Description
-  4. Location
+  2. HospitalID(Foreign Key)
+  3. Department Name
+  4. Description
+  5. Location
 - Hospital
   1. HospitalID (Primary Key)
   2. Hospital Name
   3. Hospital Address
 - Billing
   1. Billing ID (Primary Key)
-  2. Patient ID (Foreign Key)
-  3. Doctor ID (Foreign Key)
-  4. Appointment ID (Foreign Key)
-  5. Billing Date
-  6. Amount
-  7. Payment Status
+  2. Appointment ID (Foreign Key)
+  3. Billing Date
+  4. Amount
+  5. Payment Status
 - Room
-  1. Room Number
-  2. Floor Number
+  1. Room Number(Primary Key)
+  2. Appointment ID (Foreign Key)
+  3. Floor Number
 - Insurance
   1. Insurance ID (Primary key)
-  2. Insurance Company Name
-  3. Policy Number
-  4. Expiration Date
+  2. PatientID (Foreign Key)
+  3. Insurance Company Name
+  4. Policy Number
+  5. Expiration Date
 - Report
   1. ReportID (Primary Key)
   2. ReportDescription
   3. ReportDate
 - Prescription
   1. PrescriptionID (Primary Key)
-  2. PatientID (Foreign Key)
-  3. ReportID (Foreign Key)
-  4. Medication Name
-  5. Dosage
-  6. Start Date
-  7. End Date
+  2. ReportID (Foreign Key)
+  3. Medication Name
+  4. Dosage
+  5. Start Date
+  6. End Date
 - Test
   1. TestID (Primary Key)
-  2. PatientID (Foreign Key)
-  3. ReportID (Foreign Key)
-  4. Test Name
-  5. Date
-  6. Result
+  2. ReportID (Foreign Key)
+  3. Test Name
+  4. Date
+  5. Result
+ 
+- Holiday 
+  1. DoctorID (Primary Key, Foreign Key)
+  2. HolidayDate
  
 ### RELATION BETWEEN ENTITIES
 
-1. Patient-Appointment: Each patient is associated with one or more appointments. This relationship links patients to their scheduled medical visits, allowing for tracking appointment history and ensuring timely care.
-2. Appointment-Doctor: An appointment is linked to a specific doctor or healthcare provider. This relationship establishes the connection between the scheduled visit and the healthcare professional who will attend to the patient.
-3. Doctor-Department: Doctors are affiliated with specific departments within the healthcare institution. This relationship defines the specialization and expertise of each doctor.
-4. Department-Hospital: Each department operates within a particular hospital. This relationship helps in the organization of medical services, and it is vital for resource allocation.
-5. Hospital-Room: Hospitals consist of multiple rooms, such as patient rooms, examination rooms, and operating rooms. This relationship associates rooms with the hospital they belong to.
-6. Patient-Room: Patients have to go to a specific room to receive the treatment. 
-7. Patient-Billing: Each patient has a billing record associated with their medical expenses. This relationship facilitates the management of financial transactions related to healthcare services.
-8. Doctor-Billing: Doctors generate bills for their services. This relationship connects the healthcare provider to the billing system, enabling accurate invoicing for medical consultations and procedures.
-9. Patient-Prescription: Patients receive prescriptions for medications from doctors. This relationship tracks the medications prescribed to individual patients.
-10. Prescription-Report: It links prescriptions to the report which is prescribed by the doctor in the report during the appointment. This is essential for tracking the medical history of patients and ensuring the proper administration of medications.
-11. Patient-Test: Patients may undergo various medical tests. This relationship associates patients with the tests they are scheduled for or have undergone, facilitating the tracking of diagnostic procedures.
-12. Report-Doctor: The doctor will give a report for each appointment with a Patient, which might contain a Test or Prescription or none.
-13. Test-Report: The report may contain medical tests for patients. This relationship connects the tests to the healthcare providers who requested them, ensuring that the correct tests are conducted and results communicated.
-15. Patient-Insurance: Patients may have health insurance coverage. This relationship links patients to their respective insurance policies, enabling the healthcare facility to verify coverage and manage insurance claims.
+1. Patient-Insurance: Patients may have health insurance coverage. This relationship links patients to their respective insurance policies, enabling the healthcare facility to verify coverage and manage insurance claims.
+
+2. Patient-Appointment: Each patient is associated with one or more appointments. This relationship links patients to their scheduled medical visits, allowing for tracking appointment history and ensuring timely care.
+
+3. Appointment-Billing: Each billing record is associated with a specific appointment, and conversely, an appointment is linked to its corresponding billing information. This relationship simplifies the financial aspect of healthcare services, enabling accurate billing and payment tracking.
+
+4. Appointment-Room: Each appointment is assigned to a specific room, and each room is scheduled based on appointments. This relationship is crucial for efficiently managing the allocation of examination and treatment spaces.
+
+5. Appointment-Report: Every appointment generates a report detailing the proceedings, and each report is specific to an appointment. This relationship facilitates the recording and retrieval of essential medical information.
+
+6. Report-Prescription: It links prescriptions to the report which is prescribed by the doctor in the report during the appointment. This is essential for tracking the medical history of patients and ensuring the proper administration of medications.
+
+7. Report-Test: The report may contain medical tests for patients. This relationship connects the tests to the healthcare providers who requested them, ensuring that the correct tests are conducted and results communicated.
+
+8. Appointment-Doctor: An appointment is linked to a specific doctor or healthcare provider. This relationship establishes the connection between the scheduled visit and the healthcare professional who will attend to the patient.
+
+9. Doctor-Department: Doctors are affiliated with specific departments within the healthcare institution, where they apply their specialized expertise. This relationship is vital for organizing medical services and aligning the right doctors with the appropriate departments.
+
+10. Department-Hospital: Each department operates within a specific hospital, contributing to the efficient organization of medical services and resource allocation within the healthcare institution. This relationship helps ensure the smooth functioning of the entire healthcare system.
+
+11. Doctor-Holiday: Doctor may or may not go on leave which makes it optional many relation. Sometimes they go for conferences which makes them unavailable for appointments with patients. In the same way a holiday/leave will definitely have a person who applied for a holiday or going on leave. 
+
 
 ### DESIGN DECISIONS
 
-1. A PATIENT may have many BILLINGs. However, each BILLING must belong to exactly one PATIENT.
-2. A PATIENT may make many APPOINTMENTs. But each APPOINTMENT must belong to exactly one PATIENT. 
-3. A PATIENT may have many PRESCRIPTIONs. However, each PRESCRIPTIONS must belong to exactly one PATIENT.
-4. A PATIENT may use many INSURANCE. But each INSURANCE must belong to exactly one PATIENT.
-5. A PATIENT may have many PRESCRIPTIONs. However, each PRESCRIPTION must belong to one PATIENT.
-6. A PATIENT may take many TESTs. And each TEST may be taken by one PATIENT.
-7. A REPORT may contain many PRESCRIPTIONs. But each PRESCRIPTION must be a part of exactly one REPORT.
-8. A REPORT may contain many TESTs. But each TEST must be a part of exactly one REPORT.
-9. A DOCTOR must give at least one REPORT. And each REPORT must be given by exactly one DOCTOR.
-10. A DEPARTMENT may have many DOCTORs. But each DOCTOR must belong to exactly one DEPARTMENT.
-11. A HOSPITAL may have many DEPARTMENTs. But each DEPARTMENT must belong to exactly one HOSPITAL.
-12. A DEPARTMENT  may have many RESOURCEs. And each RESOURCE must belong to at least one DEPARTMENT.
-13. A ROOM may be assigned to many PATIENTs. And each PATIENT may accommodate one ROOM.
-14. A HOSPITAL must have at least one ROOM. And each ROOM only could belong to one HOSPITAL.
+1. A PATIENT may have multiple INSURANCE policies, but each INSURANCE policy must be associated with exactly one PATIENT.
+2. A PATIENT may schedule multiple APPOINTMENTS, but each APPOINTMENT must be linked to precisely one PATIENT.
+3. An APPOINTMENT must be associated with exactly one REPORT, and each REPORT must be generated for precisely one APPOINTMENT.
+4. A REPORT may include multiple PRESCRIPTIONs, but each PRESCRIPTION must be a component of exactly one REPORT.
+5. A REPORT may encompass multiple TESTs, but each TEST must be a part of exactly one REPORT.
+6. A ROOM must be assigned to exactly one APPOINTMENT, and each APPOINTMENT will be conducted in a ROOM.
+7. A BILLING record is tied to exactly one APPOINTMENT, and each APPOINTMENT will have precisely one BILLING record.
+8. An APPOINTMENT will be allocated to one or more DOCTORS, and a DOCTOR may be responsible for multiple APPOINTMENTS.
+9. A DEPARTMENT may employ multiple DOCTORS, but each DOCTOR must be affiliated with exactly one DEPARTMENT.
+10. A HOSPITAL may house multiple DEPARTMENTS, but each DEPARTMENT must be a part of exactly one HOSPITAL.
+
+### CHANGES FOR P3
+
+1. Released the relationship between “Patient” and “Room”, “Patient” and “Billing”. “Room” and “Billing” are now related to “Patient” by accessing “Appointment” which has “PatientID” as a foreign key.
+2. Released the relationship between “Billing” and “Doctor”, “Report” and “Doctor”. “Billing” and “Report” are now related to “Doctor” by accessing “Appointment” which has “DoctorID” as a foreign key.
+3. Deleted “Resource” entity.
+4. Added entity “Holiday” related to “Doctor” entity. Each doctor may have many holidays.
+5. Deleted the relationship between “Prescription” and “Patient”, “Test” and “Patient”. “Prescription” and “Test” are now just contained in the “Report” entity.
+6. Released the relationship between “Room” and “Hospital”. “Room” is now being related to “Hospital” by a foreign key chain like Room->Appointment->Doctor->Department->Hospital.
+7. The diagram is now normalized to 3NF.
